@@ -3,6 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
 
+import userRouter from './src/routes/user'
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
 }))
 
+app.use('/admin', userRouter)
 
 app.listen(PORT, () => {
     console.log("App is running on port " + PORT)
