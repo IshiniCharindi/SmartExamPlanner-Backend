@@ -1,5 +1,4 @@
 import { eq } from "drizzle-orm";
-import Admin from "../../models/Admin";
 import db from "../database";
 import { users } from "../schema";
 import {checkPassword, createHash} from "../../middleware/hashing";
@@ -8,7 +7,7 @@ import {User} from "../../models/user";
 
 export default class AdminServices {
     // check admin password
-    static async loginAttempt(userCredentials: User): Promise<boolean | Admin> {
+    static async loginAttempt(userCredentials: User): Promise<boolean | User> {
         const result = await db.query.users.findFirst({
             where: eq(users.email, userCredentials.email ?? '')
         })
