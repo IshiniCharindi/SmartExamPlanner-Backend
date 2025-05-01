@@ -3,7 +3,7 @@ import { sql } from "drizzle-orm";
 import { json } from "drizzle-orm/mysql-core";
 import { text } from "drizzle-orm/mysql-core";
 import { date, time } from "drizzle-orm/mysql-core";
-import { datetime } from "drizzle-orm/mysql-core";
+
 
 export const users = mysqlTable("users", {
     userId: int("user_id").primaryKey().autoincrement(),

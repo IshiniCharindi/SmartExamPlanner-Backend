@@ -13,8 +13,14 @@ export default class AdminServices {
         })
 
         if (result && await checkPassword(userCredentials.password ?? '', result.password)) {
-            const {password, adminId, ...rest} = result
-            return rest;
+            if (result && await checkPassword(userCredentials.password ?? '', result.password)) {
+                const { password, ...rest } = result;
+                return {
+                    ...rest,
+                    email: rest.email ?? undefined,
+                    phone: rest.phone ?? undefined
+                };
+            }
         }
 
         return false
