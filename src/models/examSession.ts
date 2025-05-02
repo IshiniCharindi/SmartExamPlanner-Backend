@@ -1,8 +1,9 @@
 export interface ExamSession {
     sessionId?: number;
-    examDate: string;         // Format: 'YYYY-MM-DD'
-    startTime: string;        // Format: 'HH:MM:SS'
-    endTime: string;          // Format: 'HH:MM:SS'
+    examDate: string;
+    startTime: string;
+    endTime: string;
     subjectCode?: string;
+    degree?:string,
     studentCount: number;
 }
