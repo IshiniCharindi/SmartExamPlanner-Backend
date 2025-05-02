@@ -13,7 +13,7 @@ export default class ExamSessionServices {
                     endTime: examSession.endTime,
                     subjectCode: examSession.subjectCode ?? null,
                     studentCount: examSession.studentCount,
-                    degreeId: examSession.degreeId // Add this line
+                    degreeId: examSession. departmentId // Add this line
                 });
 
             if (result && result[0].insertId) {
@@ -58,7 +58,7 @@ export default class ExamSessionServices {
                     endTime: examSession.endTime,
                     subjectCode: examSession.subjectCode ?? null,
                     studentCount: examSession.studentCount,
-                    degreeId: examSession.degreeId // Add this line
+                    degreeId: examSession. departmentId // Add this line
                 })
                 .where(eq(examSessions.sessionId, examSession.sessionId!));
 

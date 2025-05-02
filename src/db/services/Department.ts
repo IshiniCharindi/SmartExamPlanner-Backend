@@ -14,7 +14,7 @@ export default class DepartmentService {
         }
 
         const result = await db.select({
-            degreeId: degree.degreeId,
+            departmentId: degree.degreeId,
             name: degree.name,
             facultyId: degree.facultyId,
         })

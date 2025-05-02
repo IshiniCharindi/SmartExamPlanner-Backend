@@ -5,7 +5,7 @@ const addSession = async (req: Request, res: Response) => {
     let proceed = false, message = null, content = null
 
     try {
-        // console.log("Request",req.body)
+        console.log("Request",req.body)
         content = await ExamSessionServices.addSession(req.body)
         console.log("content",content)
         if(content) {

@@ -6,6 +6,7 @@ const fetchDepartments = async (req: Request, res: Response) => {
 
     try {
         content = await DepartmentService.fetchDepartments()
+        console.log("Department",content)
         message ="category loaded successfully "
     } catch(e) {
         proceed = false

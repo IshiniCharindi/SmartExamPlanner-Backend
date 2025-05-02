@@ -4,6 +4,6 @@ export interface ExamSession {
     startTime: string;
     endTime: string;
     subjectCode?: string;
-    degreeId: number; // Changed from string to number to match database schema
+    departmentId: number; // Changed from string to number to match database schema
     studentCount: number;
 }
