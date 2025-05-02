@@ -80,4 +80,30 @@ export default class ExamSessionServices {
             return false; // Return false if there's an error
         }
     }
+
+    static async deleteSession(sessionId: string) {
+        try {
+            // Ensure sessionId is converted to a number, since it's expected to be a number in the database schema
+            const sessionIdNumber = Number(sessionId);
+
+            if (isNaN(sessionIdNumber)) {
+                console.log("Invalid sessionId: Not a valid number");
+                return false;
+            }
+
+            // Delete session from the database using the number type
+            const result = await db.delete(examSessions)
+                .where(eq(examSessions.sessionId, sessionIdNumber));
+
+            if (result && result[0]?.affectedRows > 0) {
+                return true; // Return true if deletion is successful
+            } else {
+                console.log("Session not found or no rows deleted");
+                return false; // No session found to delete or no rows were deleted
+            }
+        } catch (error) {
+            console.error("Error deleting exam session:", error);
+            return false; // Return false if an error occurs
+        }
+    }
 }

@@ -76,8 +76,38 @@ const updateSession = async (req: Request, res: Response) => {
     })
 }
 
+const deleteSession = async (req: Request, res: Response) => {
+    let proceed = false, message = null, content = null;
+
+    const sessionId = req.params.sessionId;  // Extract sessionId from the URL parameters
+
+    try {
+        console.log("Deleting session with ID:", sessionId);
+        content = await ExamSessionServices.deleteSession(sessionId); // Pass the sessionId to the service layer
+        console.log("content", content);
+
+        if (content) {
+            proceed = true;
+            message = 'Session deleted successfully';
+        } else {
+            message = 'Session deletion failed';
+        }
+    } catch (error) {
+        proceed = false;
+        message = 'Server error';
+        console.error("Error deleting session:", error);
+    }
+
+    res.status(200).json({
+        proceed: proceed,
+        message: message,
+        content: content
+    });
+};
+
 export {
     addSession,
     getAllSession,
-    updateSession
+    updateSession,
+    deleteSession
 }
