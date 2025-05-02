@@ -13,18 +13,32 @@ export const users = mysqlTable("users", {
     email: varchar("email", { length: 100 }),
     phone: varchar("phone", { length: 20 }),
 });
+export const faculty = mysqlTable("faculty", {
+    facultyId: int("faculty_id").primaryKey().autoincrement(),
+    name: varchar("name", { length: 255 }),
+});
+
+export const department = mysqlTable("department", {
+    departmentId: int("department_id").primaryKey().autoincrement(),
+    name: varchar("name", { length: 255 }),
+    facultyId: int("faculty_id").notNull().references(() => faculty.facultyId),
+});
 
 export const lecturers = mysqlTable("lecturers", {
     lecturerId: int("lecturer_id").primaryKey().autoincrement(),
     name: varchar("name", { length: 100 }).notNull(),
-    designation: varchar("designation", { length: 100 }),
-    department: varchar("department", { length: 50 }),
+    departmentId: int("department_id")
+        .notNull()
+        .references(() => department.departmentId),
     rank: varchar("rank", { length: 50 }),
-    faculty: varchar("faculty", { length: 50 }),
+    facultyId: int("faculty_id")
+        .notNull()
+        .references(() => faculty.facultyId),
     availability: json("availability"),
     email: varchar("email", { length: 100 }),
     phone: varchar("phone", { length: 20 }),
 });
+
 
 export const examHalls = mysqlTable("exam_halls", {
     hallId: int("hall_id").primaryKey().autoincrement(),
@@ -78,5 +92,3 @@ export const notifications = mysqlTable("notifications", {
     sentAt: datetime("sent_at").default(sql`CURRENT_TIMESTAMP`),
     via: mysqlEnum("via", ['Email', 'SMS']),
 });
-
-
