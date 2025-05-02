@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import path from 'path'
+import cookieParser from 'cookie-parser';
 
 import userRouter from './src/routes/user'
 import examSessionRouter from "./src/routes/examSessionRouter";
@@ -17,9 +18,11 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cors({
     origin: 'http://localhost:5173',
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
 }))
 
+app.use(cookieParser());
 app.use('/admin', userRouter)
 app.use('/examSession', examSessionRouter)
 
