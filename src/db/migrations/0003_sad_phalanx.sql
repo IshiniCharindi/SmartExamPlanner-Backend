@@ -1,0 +1,1 @@
+ALTER TABLE `exam_sessions` MODIFY COLUMN `subject_code` varchar(100);

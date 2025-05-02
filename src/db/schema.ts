@@ -58,7 +58,7 @@ export const examSessions = mysqlTable("exam_sessions", {
     examDate: date("exam_date").notNull(),
     startTime: time("start_time").notNull(),
     endTime: time("end_time").notNull(),
-    subjectCode: varchar("subject_code", { length: 10 }),
+    subjectCode: varchar("subject_code", { length: 100 }),
     studentCount: int("student_count").notNull(),
     degreeId: int("degree_id")
         .references(() => degree.degreeId)
