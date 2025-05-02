@@ -62,6 +62,9 @@ export const examSessions = mysqlTable("exam_sessions", {
     endTime: time("end_time").notNull(),
     subjectCode: varchar("subject_code", { length: 10 }),
     studentCount: int("student_count").notNull(),
+    degreeId: int("degree_id")
+        .references(() => degree.degreeId)
+        .notNull(), // Add this line for the foreign key
 });
 export const hallAllocations = mysqlTable("hall_allocations", {
     allocationId: int("allocation_id").primaryKey().autoincrement(),

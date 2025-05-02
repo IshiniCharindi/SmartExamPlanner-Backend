@@ -12,10 +12,10 @@ export default class ExamSessionServices {
                     startTime: examSession.startTime,
                     endTime: examSession.endTime,
                     subjectCode: examSession.subjectCode ?? null,
-                    studentCount: examSession.studentCount
+                    studentCount: examSession.studentCount,
+                    degreeId: examSession.degreeId // Add this line
                 });
 
-            // For MySQL, the result contains insertId
             if (result && result[0].insertId) {
                 const [insertedSession] = await db.select()
                     .from(examSessions)
@@ -41,7 +41,6 @@ export default class ExamSessionServices {
 
     static async updateSession(examSession: ExamSession) {
         try {
-            // Check if the session exists first
             const [existingSession] = await db.select()
                 .from(examSessions)
                 .where(eq(examSessions.sessionId, examSession.sessionId!))
@@ -49,10 +48,9 @@ export default class ExamSessionServices {
 
             if (!existingSession) {
                 console.log("Session not found for update:", examSession.sessionId);
-                return false; // Session does not exist
+                return false;
             }
 
-            // Update the session in the database
             const result = await db.update(examSessions)
                 .set({
                     examDate: new Date(examSession.examDate),
@@ -60,24 +58,22 @@ export default class ExamSessionServices {
                     endTime: examSession.endTime,
                     subjectCode: examSession.subjectCode ?? null,
                     studentCount: examSession.studentCount,
+                    degreeId: examSession.degreeId // Add this line
                 })
                 .where(eq(examSessions.sessionId, examSession.sessionId!));
 
-            // Check if the update operation affected any rows
             if (result && result[0]?.affectedRows > 0) {
-                // Fetch the updated session
                 const [updatedSession] = await db.select()
                     .from(examSessions)
                     .where(eq(examSessions.sessionId, examSession.sessionId!));
-
-                return updatedSession || false; // Return updated session, or false if not found
+                return updatedSession || false;
             } else {
                 console.log("No rows affected by the update");
-                return false; // No rows were updated
+                return false;
             }
         } catch (error) {
             console.error("Error updating exam session:", error);
-            return false; // Return false if there's an error
+            return false;
         }
     }
 

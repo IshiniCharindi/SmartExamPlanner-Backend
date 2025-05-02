@@ -1,0 +1,2 @@
+ALTER TABLE `exam_sessions` ADD `degree_id` int NOT NULL;--> statement-breakpoint
+ALTER TABLE `exam_sessions` ADD CONSTRAINT `exam_sessions_degree_id_degree_degree_id_fk` FOREIGN KEY (`degree_id`) REFERENCES `degree`(`degree_id`) ON DELETE no action ON UPDATE no action;
