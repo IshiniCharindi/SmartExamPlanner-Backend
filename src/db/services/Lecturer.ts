@@ -10,7 +10,6 @@ export default class LecturerService {
                 // Insert lecturer data
                 await trx.insert(lecturers).values({
                     name: lecturerData.name,
-                    degreeId: lecturerData.departmentId,
                     rank: lecturerData.rank,
                     facultyId: lecturerData.facultyId,
                     availability: lecturerData.availability,
@@ -41,7 +40,6 @@ export default class LecturerService {
                 await trx.update(lecturers)
                     .set({
                         name: lecturerData.name,
-                        degreeId: lecturerData.departmentId,
                         rank: lecturerData.rank,
                         facultyId: lecturerData.facultyId,
                         availability: lecturerData.availability,
@@ -130,13 +128,10 @@ export default class LecturerService {
                     availability: lecturers.availability,
                     email: lecturers.email,
                     phone: lecturers.phone,
-                    degreeId: degree.degreeId,
-                    degreeName: degree.name,
                     facultyId: faculty.facultyId,
                     facultyName: faculty.name,
                 })
                 .from(lecturers)
-                .innerJoin(degree, eq(lecturers.degreeId, degree.degreeId))
                 .innerJoin(faculty, eq(lecturers.facultyId, faculty.facultyId));
 
             return result;

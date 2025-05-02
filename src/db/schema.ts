@@ -27,9 +27,6 @@ export const degree = mysqlTable("degree", {
 export const lecturers = mysqlTable("lecturers", {
     lecturerId: int("lecturer_id").primaryKey().autoincrement(),
     name: varchar("name", { length: 100 }).notNull(),
-    degreeId: int("degree_id")
-        .notNull()
-        .references(() => degree.degreeId),
     rank: varchar("rank", { length: 50 }),
     facultyId: int("faculty_id")
         .notNull()
@@ -38,6 +35,7 @@ export const lecturers = mysqlTable("lecturers", {
     email: varchar("email", { length: 100 }),
     phone: varchar("phone", { length: 20 }),
 });
+
 
 
 export const examHalls = mysqlTable("exam_halls", {

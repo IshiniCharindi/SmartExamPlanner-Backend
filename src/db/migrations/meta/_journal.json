@@ -15,6 +15,13 @@
       "when": 1746214389054,
       "tag": "0001_slim_george_stacy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1746217159041,
+      "tag": "0002_shiny_network",
+      "breakpoints": true
     }
   ]
 }
