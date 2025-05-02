@@ -1,7 +1,7 @@
 {
   "version": "5",
   "dialect": "mysql",
-  "id": "1547b678-1286-48fe-a178-36fd4f50d140",
+  "id": "a02e1ce3-4ddd-4d3b-9072-25541d5a55ef",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "audit_logs": {
@@ -51,6 +51,58 @@
           "name": "audit_logs_log_id",
           "columns": [
             "log_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
+    "degree": {
+      "name": "degree",
+      "columns": {
+        "degree_id": {
+          "name": "degree_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "faculty_id": {
+          "name": "faculty_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "degree_faculty_id_faculty_faculty_id_fk": {
+          "name": "degree_faculty_id_faculty_faculty_id_fk",
+          "tableFrom": "degree",
+          "tableTo": "faculty",
+          "columnsFrom": [
+            "faculty_id"
+          ],
+          "columnsTo": [
+            "faculty_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "degree_degree_id": {
+          "name": "degree_degree_id",
+          "columns": [
+            "degree_id"
           ]
         }
       },
@@ -161,6 +213,37 @@
       "uniqueConstraints": {},
       "checkConstraint": {}
     },
+    "faculty": {
+      "name": "faculty",
+      "columns": {
+        "faculty_id": {
+          "name": "faculty_id",
+          "type": "int",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {
+        "faculty_faculty_id": {
+          "name": "faculty_faculty_id",
+          "columns": [
+            "faculty_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "checkConstraint": {}
+    },
     "hall_allocations": {
       "name": "hall_allocations",
       "columns": {
@@ -223,18 +306,11 @@
           "notNull": true,
           "autoincrement": false
         },
-        "designation": {
-          "name": "designation",
-          "type": "varchar(100)",
+        "degree_id": {
+          "name": "degree_id",
+          "type": "int",
           "primaryKey": false,
-          "notNull": false,
-          "autoincrement": false
-        },
-        "department": {
-          "name": "department",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "rank": {
@@ -244,11 +320,11 @@
           "notNull": false,
           "autoincrement": false
         },
-        "faculty": {
-          "name": "faculty",
-          "type": "varchar(50)",
+        "faculty_id": {
+          "name": "faculty_id",
+          "type": "int",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "availability": {
@@ -274,7 +350,34 @@
         }
       },
       "indexes": {},
-      "foreignKeys": {},
+      "foreignKeys": {
+        "lecturers_degree_id_degree_degree_id_fk": {
+          "name": "lecturers_degree_id_degree_degree_id_fk",
+          "tableFrom": "lecturers",
+          "tableTo": "degree",
+          "columnsFrom": [
+            "degree_id"
+          ],
+          "columnsTo": [
+            "degree_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "lecturers_faculty_id_faculty_faculty_id_fk": {
+          "name": "lecturers_faculty_id_faculty_faculty_id_fk",
+          "tableFrom": "lecturers",
+          "tableTo": "faculty",
+          "columnsFrom": [
+            "faculty_id"
+          ],
+          "columnsTo": [
+            "faculty_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
       "compositePrimaryKeys": {
         "lecturers_lecturer_id": {
           "name": "lecturers_lecturer_id",

@@ -1,5 +1,5 @@
 import db from "../database";
-import {department, faculty, lecturers} from "../schema";
+import {degree, faculty, lecturers} from "../schema";
 import {Lecturer} from "../../models/Lecture";
 import {eq} from "drizzle-orm";
 
@@ -10,7 +10,7 @@ export default class LecturerService {
                 // Insert lecturer data
                 await trx.insert(lecturers).values({
                     name: lecturerData.name,
-                    departmentId: lecturerData.departmentId,
+                    degreeId: lecturerData.departmentId,
                     rank: lecturerData.rank,
                     facultyId: lecturerData.facultyId,
                     availability: lecturerData.availability,
@@ -41,7 +41,7 @@ export default class LecturerService {
                 await trx.update(lecturers)
                     .set({
                         name: lecturerData.name,
-                        departmentId: lecturerData.departmentId,
+                        degreeId: lecturerData.departmentId,
                         rank: lecturerData.rank,
                         facultyId: lecturerData.facultyId,
                         availability: lecturerData.availability,
@@ -130,13 +130,13 @@ export default class LecturerService {
                     availability: lecturers.availability,
                     email: lecturers.email,
                     phone: lecturers.phone,
-                    departmentId: department.departmentId,
-                    departmentName: department.name,
+                    degreeId: degree.degreeId,
+                    degreeName: degree.name,
                     facultyId: faculty.facultyId,
                     facultyName: faculty.name,
                 })
                 .from(lecturers)
-                .innerJoin(department, eq(lecturers.departmentId, department.departmentId))
+                .innerJoin(degree, eq(lecturers.degreeId, degree.degreeId))
                 .innerJoin(faculty, eq(lecturers.facultyId, faculty.facultyId));
 
             return result;

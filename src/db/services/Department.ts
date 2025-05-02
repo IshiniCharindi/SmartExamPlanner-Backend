@@ -1,26 +1,26 @@
-import {and, eq, like} from "drizzle-orm";
-import {department} from "../schema";
+import { and, eq, like } from "drizzle-orm";
+import { degree } from "../schema";
 import db from "../database";
 
-export default class DepartmentService{
+export default class DepartmentService {
     static async fetchDepartments({ name = false, facultyId = false }: { name?: string | boolean, facultyId?: number | boolean } = {}) {
         const filters: any[] = [];
 
         if (typeof name === 'string') {
-            filters.push(like(department.name, `%${name}%`));
+            filters.push(like(degree.name, `%${name}%`));  // Fixed: Proper template literal syntax
         }
         if (typeof facultyId === 'number') {
-            filters.push(eq(department.facultyId, facultyId));
+            filters.push(eq(degree.facultyId, facultyId));
         }
 
         const result = await db.select({
-            departmentId: department.departmentId,
-            name: department.name,
-            facultyId: department.facultyId,
+            degreeId: degree.degreeId,
+            name: degree.name,
+            facultyId: degree.facultyId,
         })
-            .from(department)
+            .from(degree)
             .where(filters.length > 0 ? and(...filters) : undefined)
-            .orderBy(department.name);
+            .orderBy(degree.name);
 
         return result;
     }

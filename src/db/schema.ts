@@ -18,8 +18,8 @@ export const faculty = mysqlTable("faculty", {
     name: varchar("name", { length: 255 }),
 });
 
-export const department = mysqlTable("degree", {
-    departmentId: int("degree_id").primaryKey().autoincrement(),
+export const degree = mysqlTable("degree", {
+    degreeId: int("degree_id").primaryKey().autoincrement(),
     name: varchar("name", { length: 255 }),
     facultyId: int("faculty_id").notNull().references(() => faculty.facultyId),
 });
@@ -29,7 +29,7 @@ export const lecturers = mysqlTable("lecturers", {
     name: varchar("name", { length: 100 }).notNull(),
     degreeId: int("degree_id")
         .notNull()
-        .references(() => department.degreeId),
+        .references(() => degree.degreeId),
     rank: varchar("rank", { length: 50 }),
     facultyId: int("faculty_id")
         .notNull()

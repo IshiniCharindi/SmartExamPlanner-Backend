@@ -7,6 +7,13 @@ CREATE TABLE `audit_logs` (
 	CONSTRAINT `audit_logs_log_id` PRIMARY KEY(`log_id`)
 );
 --> statement-breakpoint
+CREATE TABLE `degree` (
+	`degree_id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(255),
+	`faculty_id` int NOT NULL,
+	CONSTRAINT `degree_degree_id` PRIMARY KEY(`degree_id`)
+);
+--> statement-breakpoint
 CREATE TABLE `exam_halls` (
 	`hall_id` int AUTO_INCREMENT NOT NULL,
 	`hall_name` varchar(100) NOT NULL,
@@ -25,6 +32,12 @@ CREATE TABLE `exam_sessions` (
 	CONSTRAINT `exam_sessions_session_id` PRIMARY KEY(`session_id`)
 );
 --> statement-breakpoint
+CREATE TABLE `faculty` (
+	`faculty_id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(255),
+	CONSTRAINT `faculty_faculty_id` PRIMARY KEY(`faculty_id`)
+);
+--> statement-breakpoint
 CREATE TABLE `hall_allocations` (
 	`allocation_id` int AUTO_INCREMENT NOT NULL,
 	`session_id` int,
@@ -36,10 +49,9 @@ CREATE TABLE `hall_allocations` (
 CREATE TABLE `lecturers` (
 	`lecturer_id` int AUTO_INCREMENT NOT NULL,
 	`name` varchar(100) NOT NULL,
-	`designation` varchar(100),
-	`department` varchar(50),
+	`degree_id` int NOT NULL,
 	`rank` varchar(50),
-	`faculty` varchar(50),
+	`faculty_id` int NOT NULL,
 	`availability` json,
 	`email` varchar(100),
 	`phone` varchar(20),
@@ -83,3 +95,7 @@ CREATE TABLE `users` (
 	CONSTRAINT `users_user_id` PRIMARY KEY(`user_id`),
 	CONSTRAINT `users_username_unique` UNIQUE(`username`)
 );
+--> statement-breakpoint
+ALTER TABLE `degree` ADD CONSTRAINT `degree_faculty_id_faculty_faculty_id_fk` FOREIGN KEY (`faculty_id`) REFERENCES `faculty`(`faculty_id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `lecturers` ADD CONSTRAINT `lecturers_degree_id_degree_degree_id_fk` FOREIGN KEY (`degree_id`) REFERENCES `degree`(`degree_id`) ON DELETE no action ON UPDATE no action;--> statement-breakpoint
+ALTER TABLE `lecturers` ADD CONSTRAINT `lecturers_faculty_id_faculty_faculty_id_fk` FOREIGN KEY (`faculty_id`) REFERENCES `faculty`(`faculty_id`) ON DELETE no action ON UPDATE no action;

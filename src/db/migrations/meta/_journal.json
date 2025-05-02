@@ -5,29 +5,8 @@
     {
       "idx": 0,
       "version": "5",
-      "when": 1746096481880,
-      "tag": "0000_bouncy_domino",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "5",
-      "when": 1746180678913,
-      "tag": "0001_faithful_pet_avengers",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "5",
-      "when": 1746183545778,
-      "tag": "0002_complete_iron_monger",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "5",
-      "when": 1746204835444,
-      "tag": "0003_naive_white_tiger",
+      "when": 1746208837625,
+      "tag": "0000_dusty_gateway",
       "breakpoints": true
     }
   ]
