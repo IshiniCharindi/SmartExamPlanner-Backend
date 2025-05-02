@@ -42,7 +42,7 @@ export const examHalls = mysqlTable("exam_halls", {
     hallId: int("hall_id").primaryKey().autoincrement(),
     hallName: varchar("hall_name", { length: 100 }).notNull(),
     maxCapacity: int("max_capacity").notNull(),
-    location: varchar("location", { length: 100 }),
+
 });
 
 export const subjects = mysqlTable("subjects", {

@@ -1,0 +1,1 @@
+ALTER TABLE `exam_halls` DROP COLUMN `location`;

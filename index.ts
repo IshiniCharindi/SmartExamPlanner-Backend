@@ -9,6 +9,7 @@ import examSessionRouter from "./src/routes/examSessionRouter";
 import departmentRouter from "./src/routes/department";
 import lectureRouter from "./src/routes/lecturer";
 import facultyRouter from "./src/routes/faculty";
+import examHallRouter from "./src/routes/examHall";
 
 dotenv.config()
 
@@ -31,6 +32,7 @@ app.use('/examSession', examSessionRouter)
 app.use('/department', departmentRouter)
 app.use('/lecturer', lectureRouter)
 app.use('/faculty',facultyRouter)
+app.use('/examHall',examHallRouter)
 
 app.listen(PORT, () => {
     console.log("App is running on port " + PORT)
