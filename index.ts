@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 
 import userRouter from './src/routes/user'
 import examSessionRouter from "./src/routes/examSessionRouter";
+import departmentRouter from "./src/routes/department";
+import lectureRouter from "./src/routes/lecturer";
 
 dotenv.config()
 
@@ -25,6 +27,8 @@ app.use(cors({
 app.use(cookieParser());
 app.use('/admin', userRouter)
 app.use('/examSession', examSessionRouter)
+app.use('/department', departmentRouter)
+app.use('/lecturer', lectureRouter)
 
 app.listen(PORT, () => {
     console.log("App is running on port " + PORT)
