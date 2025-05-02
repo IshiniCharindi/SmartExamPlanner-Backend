@@ -4,6 +4,7 @@ import cors from 'cors'
 import path from 'path'
 
 import userRouter from './src/routes/user'
+import examSessionRouter from "./src/routes/examSessionRouter";
 
 dotenv.config()
 
@@ -20,6 +21,7 @@ app.use(cors({
 }))
 
 app.use('/admin', userRouter)
+app.use('/examSession', examSessionRouter)
 
 app.listen(PORT, () => {
     console.log("App is running on port " + PORT)
