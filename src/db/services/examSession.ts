@@ -20,4 +20,14 @@ export default class ExamSessionServices {
             return false;
         }
     }
+    static async getAllSession() {
+        try {
+            // Fetch all sessions from the database
+            const sessions = await db.select().from(examSessions);
+            return sessions || [];
+        } catch (error) {
+            console.error("Error fetching exam sessions:", error);
+            return false;
+        }
+    }
 }

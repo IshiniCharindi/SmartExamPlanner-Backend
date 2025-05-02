@@ -26,6 +26,32 @@ const addSession = async (req: Request, res: Response) => {
     })
 }
 
+const getAllSession = async (req: Request, res: Response) => {
+    let proceed = false, message = null, content = null
+
+    try {
+        console.log("Request",req.body)
+        content = await ExamSessionServices.getAllSession()
+        console.log("content",content)
+        if(content) {
+            proceed=true
+            message = 'sessions fetched successfully';
+        }
+        else message = 'sessions fetching failed';
+    } catch(e) {
+        proceed = false
+        message = 'server error'
+    }
+
+
+    res.status(200).json({
+        proceed: proceed,
+        message: message,
+        content: content
+    })
+}
+
 export {
     addSession,
+    getAllSession
 }
