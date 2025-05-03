@@ -1,5 +1,5 @@
 import db from "../database";
-import { examSessions } from "../schema";
+import {degree, examSessions} from "../schema";
 import { ExamSession } from "../../models/examSession";
 import { eq } from "drizzle-orm";
 
@@ -31,7 +31,19 @@ export default class ExamSessionServices {
 
     static async getAllSession() {
         try {
-            const sessions = await db.select().from(examSessions);
+            const sessions = await db.select({
+                sessionId: examSessions.sessionId,
+                examDate: examSessions.examDate,
+                startTime: examSessions.startTime,
+                endTime: examSessions.endTime,
+                subjectCode: examSessions.subjectCode,
+                studentCount: examSessions.studentCount,
+                degreeId: examSessions.degreeId,
+                degreeName: degree.name // Include the degree name
+            })
+                .from(examSessions)
+                .leftJoin(degree, eq(examSessions.degreeId, degree.degreeId));
+
             return sessions || [];
         } catch (error) {
             console.error("Error fetching exam sessions:", error);

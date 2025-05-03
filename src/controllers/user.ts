@@ -7,8 +7,8 @@ const loginAttempt: RequestHandler = async (req: Request, res: Response, next: N
     try {
         const result = await UserServices.loginAttempt(req.body);
 
-        if (result === true) {
-            // This case shouldn't happen if loginAttempt returns User on success
+        if (!result) {
+            // Login failed case
             message = "Invalid credentials";
             res.status(401).json({
                 proceed: false,
@@ -16,8 +16,8 @@ const loginAttempt: RequestHandler = async (req: Request, res: Response, next: N
                 content: null
             });
             return;
-        } else if (result) {
-            // result is User
+        } else {
+            // Login successful case
             proceed = true;
             message = "Login successful";
             content = result;
@@ -31,26 +31,20 @@ const loginAttempt: RequestHandler = async (req: Request, res: Response, next: N
                 maxAge: 86400000 // 1 day
             });
 
-            const { password, ...userWithoutPassword } = content;
+            // Type assertion to ensure TypeScript knows this is an object
+            const user = content as Record<string, any>;
+            const { password, ...userWithoutPassword } = user;
 
             res.status(200).json({
                 proceed: proceed,
                 message: message,
                 content: userWithoutPassword
             });
-        } else {
-            message = "Invalid credentials";
-            res.status(401).json({
-                proceed: false,
-                message: message,
-                content: null
-            });
         }
     } catch (e) {
         next(e);
     }
 };
-
 const protectedAccess: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
     let proceed = false, message = null, content = null
     try {
